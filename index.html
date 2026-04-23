@@ -222,6 +222,8 @@ a.chip:hover{background:var(--accent-light);color:var(--accent-dark)}
 .lead-email-visible{margin-top:6px;font-family:'SF Mono','Menlo','Consolas',monospace;font-size:.82rem;background:var(--accent-light);color:var(--accent-dark);padding:5px 10px;border-radius:6px;border:1px solid var(--accent);display:inline-block;user-select:all;cursor:copy;font-weight:600}
 .lead-email-visible:hover{background:var(--accent);color:#fff}
 .lead-email-missing{margin-top:6px;font-size:.78rem;color:var(--amber);font-style:italic}
+.lead-linkedin-visible{margin-top:6px;margin-left:6px;font-size:.8rem;background:#0a66c2;color:#fff;padding:5px 10px;border-radius:6px;border:1px solid #0a66c2;display:inline-flex;align-items:center;gap:6px;text-decoration:none;font-weight:600;transition:var(--transition)}
+.lead-linkedin-visible:hover{background:#084b94;border-color:#084b94}
 
 .lead-pvp{width:100%;margin-top:6px;padding:10px 14px;background:#fff7ed;border:1px solid #fed7aa;border-radius:8px;font-size:.8rem;color:var(--text-secondary);cursor:pointer;max-height:60px;overflow:hidden;transition:max-height .3s ease;position:relative}
 .lead-pvp.expanded{max-height:1200px;overflow:auto}
@@ -980,13 +982,16 @@ function renderLeadCard(d, review, realIdx) {
     const emailVisivel = d.decisor_email
       ? `<div class="lead-email-visible" title="Clique e Ctrl+C pra copiar">${escapeHtml(d.decisor_email)}</div>`
       : `<div class="lead-email-missing">Sem email — usar canal alternativo (WhatsApp/Instagram/LinkedIn)</div>`;
+    const linkedinVisivel = d.decisor_linkedin
+      ? `<a class="lead-linkedin-visible" href="${escapeHtml(d.decisor_linkedin)}" target="_blank" rel="noopener" title="Abrir LinkedIn em nova aba">&#128279; Abrir LinkedIn</a>`
+      : '';
     leadsHtml = `
       <div class="lead-row">
         <div class="lead-avatar">${avatarInit}</div>
         <div class="lead-info">
           <div class="lead-name">${escapeHtml(d.decisor_nome)}</div>
           <div class="lead-cargo">${escapeHtml(d.decisor_cargo || '')}</div>
-          ${emailVisivel}
+          ${emailVisivel}${linkedinVisivel}
         </div>
         ${badges.length ? `<div class="lead-badges">${badges.join('')}</div>` : ''}
         ${linksArr.length ? `<div class="lead-links">${linksArr.join('')}</div>` : ''}
